@@ -1,0 +1,41 @@
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+body {
+	padding-bottom: 40px;
+	background-color: #eee;
+}
+
+.alert {
+	width: 500px;
+	margin-left: 318px;
+	padding: 5px;
+	margin-bottom: -28px;
+}
+
+.h6, h6 {
+	display: inline-block;
+}
+
+.h2, h2 {
+	display: inline-block;
+}
+@media screen and (min-width: 900px) {
+.welcomeMessage {
+	border: 1px solid transparent;
+	border-radius: 4px;
+	padding: 12px;
+	margin-left: 420px
+}
+}
+@media screen and (max-width: 400px) {
+.welcomeMessage {
+	border: 1px solid transparent;
+	border-radius: 4px;
+	padding: 12px;
+	margin-left: 60px;
+}
+}
