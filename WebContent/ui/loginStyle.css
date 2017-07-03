@@ -16,26 +16,51 @@ body {
 	margin-bottom: -28px;
 }
 
-.h6, h6 {
+.h5, h5 {
 	display: inline-block;
 }
 
-.h2, h2 {
+.h3, h3 {
 	display: inline-block;
 }
+
 @media screen and (min-width: 900px) {
-.welcomeMessage {
-	border: 1px solid transparent;
-	border-radius: 4px;
-	padding: 12px;
-	margin-left: 420px
+	.welcomeMessage {
+		border: 1px solid transparent;
+		border-radius: 4px;
+		padding: 12px;
+		margin-left: 420px;
+	}
 }
-}
+
 @media screen and (max-width: 400px) {
-.welcomeMessage {
-	border: 1px solid transparent;
-	border-radius: 4px;
-	padding: 12px;
-	margin-left: 60px;
+	.welcomeMessage {
+		border: 1px solid transparent;
+		border-radius: 4px;
+		padding: 12px;
+		margin-left: 60px;
+	}
 }
+
+#search {
+	width: 200px;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	background-color: white;
+	background-image: url('/RestFullApplication/ui/images/searchicon.png');
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	padding: 12px 20px 12px 40px;
+	-webkit-transition: width 0.4s ease-in-out;
+	transition: width 0.4s ease-in-out;
+}
+
+#search:focus {
+	width: 100%;
+}
+
+.alert {
+	text-align: center;
 }
