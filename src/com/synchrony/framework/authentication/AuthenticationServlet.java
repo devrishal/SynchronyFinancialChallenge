@@ -10,8 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.synchrony.framework.common.ErrorCodes;
+import com.synchrony.framework.common.SynchronyCommon;
 import com.synchrony.framework.core.ApplicationManager;
 import com.synchrony.framework.exception.ApplicationFatalException;
 
@@ -49,19 +51,32 @@ public class AuthenticationServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		AuthenticationManager authenticationManager = new AuthenticationManager();
 		try {
-
-			authenticationManager.process(request, response);
-			boolean result = (boolean) request.getServletContext().getAttribute("Authentication_status");
+			boolean result=false;
+			if (null == request.getSession(false).getAttribute(SynchronyCommon.USER_DETAILS)) {
+				authenticationManager.process(request, response);
+				result = (boolean) request.getServletContext().getAttribute("Authentication_status");
+			}
 			PrintWriter out = response.getWriter();
+			ServletContext context = request.getServletContext();
+
 			if (result) {
-				ServletContext context = request.getServletContext();
+				HttpSession session = request.getSession(true);
+				session.setAttribute(SynchronyCommon.USER_DETAILS, context.getAttribute(SynchronyCommon.USER_DETAILS));
 				response.setContentType("text/html");
 				ApplicationManager applicationManager = new ApplicationManager();
 				applicationManager.process(request, response);
 				RequestDispatcher rd = request.getRequestDispatcher("/jsp/DashboardGames.jsp");
 				rd.include(request, response);
 
-			} else {
+			} else if (null != request.getSession(false).getAttribute(SynchronyCommon.USER_DETAILS)) {
+				response.setContentType("text/html");
+				ApplicationManager applicationManager = new ApplicationManager();
+				applicationManager.process(request, response);
+
+				RequestDispatcher rd = request.getRequestDispatcher("/jsp/DashboardGames.jsp");
+				rd.include(request, response);
+
+			} else if (!result) {
 				response.setContentType("text/html");
 				String errorMessage = "[" + ErrorCodes.INVALID_USER_DETAILS + "]"
 						+ "Invalid Username and Password details. Please try again!";
@@ -69,6 +84,7 @@ public class AuthenticationServlet extends HttpServlet {
 				request.setAttribute("Error_Message", errorMessage);
 				rd.include(request, response);
 			}
+
 		} catch (ApplicationFatalException e) {
 			e.printStackTrace();
 		}

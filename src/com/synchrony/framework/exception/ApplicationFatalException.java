@@ -13,7 +13,7 @@ public class ApplicationFatalException extends Exception {
 	 * @param errorCode
 	 * @param cause
 	 */
-	public ApplicationFatalException(String message, String errorCode, Throwable cause) {
+	public ApplicationFatalException(String message, int errorCode, Throwable cause) {
 		super(message, cause);
 	}
 

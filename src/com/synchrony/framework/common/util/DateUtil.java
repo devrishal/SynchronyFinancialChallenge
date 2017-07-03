@@ -11,4 +11,10 @@ public class DateUtil {
 
 	}
 
+	public static java.sql.Timestamp getCurrentTimeStamp() {
+
+		Date today = new Date();
+		return new java.sql.Timestamp(today.getTime());
+
+	}
 }
