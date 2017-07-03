@@ -13,47 +13,91 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/RestFullApplication/ui/loginStyle.css">
+<link rel="stylesheet"
+	href="/RestFullApplication/ui/styles/loginStyle.css">
 </head>
 <body>
 	<div class="page-header">
-		<h2>
+		<h3>
 			Synchrony Financial<small>&nbsp;&nbsp;&nbsp;&nbsp;Browse
 				Games for Diffrent Platforms</small>
-		</h2>
-		<h6>
+		</h3>
+		<h5>
 			<c:if test="${requestScope.Welcome_Message!=null}">
 				<div class="welcomeMessage alert-success">
 					<strong>${requestScope.Welcome_Message}</strong>
 				</div>
 			</c:if>
-		</h6>
+		</h5>
 	</div>
 	<div class="container">
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>Serial</th>
-					<th>Title</th>
-					<th>Platform</th>
-					<th>Score</th>
-					<th>Genre</th>
-					<th>Editor's Choice</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${requestScope.APP_DATA}" var="element" varStatus="loop">
+		<div class="row">
+			<div class="col-md-2 col-md-offset-1">
+				<form action="http://localhost:8090/RestFullApplication/Search"
+					method="post">
+					<input type="text" name="search" id="search" placeholder="Search">
+				</form>
+			</div>
+			<c:if test="${requestScope.Error_Message!=null}">
+			<div class="col-md-2 col-md-offset-1">
+					<div class="alert alert-warning">
+						<strong>${requestScope.Error_Message}</strong>
+					</div>
+			</div>
+			</c:if>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-1">
+				<h1 class="display-4">List of Games:</h1>
+			</div>
+			<div class="col-md-10 col-md-offset-1">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Serial</th>
+							<th>Title</th>
+							<th>Platform</th>
+							<th>Score</th>
+							<th>Genre</th>
+							<th>Editor's Choice</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${requestScope.APP_DATA}" var="element"
+							varStatus="loop">
+							<tr>
+								<td>${loop.index+1}</td>
+								<td>${element.title}</td>
+								<td>${element.platform}</td>
+								<td>${element.score}</td>
+								<td>${element.genre}</td>
+								<td>${element.editorsChoice}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<form action="AuthenticationServlet" method="post">
+				<input type="hidden" name="next" value="${requestScope.PAGE_NUM+1}">
+				<input type="hidden" name="previous"
+					value="${requestScope.PAGE_NUM-1}">
+				<table class="table">
 					<tr>
-						<td>${loop.index+1}</td>
-						<td>${element.title}</td>
-						<td>${element.platform}</td>
-						<td>${element.score}</td>
-						<td>${element.genre}</td>
-						<td>${element.editorsChoice}</td>
+						<th style="padding-left: 90px"><input type="submit"
+							class="btn btn-info" name="page" value="previous"></th>
+						<th style="width: 25px;"><input type="submit"
+							class="btn btn-info" name="page" value="next"></th>
+						<th style="width: 144px; padding-top: 16px;">Page Number<span
+							class="badge"><c:out value="${requestScope.PAGE_NUM}">PageNumber</c:out></span></th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				</table>
+			</form>
+
+		</div>
+
 	</div>
+
 </body>
 </html>
