@@ -15,6 +15,8 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="/RestFullApplication/ui/styles/loginStyle.css">
+<script src="/RestFullApplication/ui/scripts/filter.js"></script>
+
 </head>
 <body>
 	<div class="page-header">
@@ -33,10 +35,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 col-md-offset-1">
-				<form action="http://localhost:8090/RestFullApplication/Search"
-					method="post">
-					<input type="text" name="search" id="search" placeholder="Search">
-				</form>
+				<input type="text" name="search" id="search"  placeholder="Search">
 			</div>
 			<c:if test="${requestScope.Error_Message!=null}">
 			<div class="col-md-2 col-md-offset-1">
@@ -51,7 +50,7 @@
 				<h1 class="display-4">List of Games:</h1>
 			</div>
 			<div class="col-md-10 col-md-offset-1">
-				<table class="table table-striped">
+				<table class="table table-striped results">
 					<thead>
 						<tr>
 							<th>Serial</th>
@@ -62,7 +61,7 @@
 							<th>Editor's Choice</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tbody">
 						<c:forEach items="${requestScope.APP_DATA}" var="element"
 							varStatus="loop">
 							<tr>
@@ -87,10 +86,11 @@
 					<tr>
 						<th style="padding-left: 90px"><input type="submit"
 							class="btn btn-info" name="page" value="previous"></th>
-						<th style="width: 25px;"><input type="submit"
+							<th style="padding-top: 10px;"><label class="label label-default">Page Number<span
+							class="badge"><c:out value="${requestScope.PAGE_NUM}">PageNumber</c:out></span></label></th>
+						<th ><input type="submit"
 							class="btn btn-info" name="page" value="next"></th>
-						<th style="width: 144px; padding-top: 16px;">Page Number<span
-							class="badge"><c:out value="${requestScope.PAGE_NUM}">PageNumber</c:out></span></th>
+						
 					</tr>
 				</table>
 			</form>
